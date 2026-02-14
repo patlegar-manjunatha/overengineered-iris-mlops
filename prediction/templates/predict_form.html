@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prediction Input</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Model Input Parameters</h2>
+
+    <form action="/predict" method="post" class="prediction-form">
+
+      <input type="number" step="any" name="sepal_length" placeholder="Sepal Length" required>
+      <input type="number" step="any" name="sepal_width"  placeholder="Sepal Width" required>
+      <input type="number" step="any" name="petal_length" placeholder="Petal Length" required>
+      <input type="number" step="any" name="petal_width"  placeholder="Petal Width" required>
+
+      <button type="submit" class="primary-btn">PREDICT</button>
+
+    </form>
+  </div>
+
+</body>
+</html>

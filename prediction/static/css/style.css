@@ -1,0 +1,233 @@
+/* =====================================================
+   GLOBAL
+===================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+body {
+  background: #f5f6f8;
+  color: #222;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+.primary-btn {
+  background: #c9a24d;
+  color: #000;
+  border: none;
+  padding: 14px 28px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.primary-btn:hover {
+  opacity: 0.9;
+}
+
+
+/* =====================================================
+   HOME PAGE
+===================================================== */
+.home-container {
+  display: flex;
+  height: 100vh;
+}
+
+.home-left {
+  flex: 1;
+  padding: 80px;
+}
+
+.tagline {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #777;
+}
+
+.brand {
+  font-size: 52px;
+  margin: 20px 0;
+}
+
+.brand span {
+  color: #777;
+}
+
+.description {
+  max-width: 420px;
+  margin-bottom: 40px;
+  color: #555;
+}
+
+.home-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.core-box {
+  width: 280px;
+  height: 180px;
+  border: 1px solid #ccc;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* =====================================================
+   FORM PAGE
+===================================================== */
+.form-container {
+  width: 420px;
+  margin: 120px auto;
+  background: #ffffff;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.form-container h2 {
+  margin-bottom: 24px;
+}
+
+.prediction-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+
+/* =====================================================
+   RESULT PAGE
+===================================================== */
+.result-page {
+  padding: 60px;
+  text-align: center;
+}
+
+.result-title {
+  font-size: 30px;
+  margin-bottom: 50px;
+}
+
+
+/* =====================================================
+   RESULT CARDS LAYOUT
+===================================================== */
+.result-cards {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+
+/* =====================================================
+   CARD BASE
+===================================================== */
+.card {
+  width: 240px;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 16px;
+  transition: transform 0.35s ease, filter 0.35s ease, opacity 0.35s ease;
+}
+
+.card h3 {
+  margin-top: 14px;
+  font-size: 18px;
+}
+
+
+/* =====================================================
+   DIM (NON-PREDICTED)
+===================================================== */
+.card.dim {
+  opacity: 0.55;
+}
+
+.card.dim img {
+  filter: grayscale(90%);
+  transform: scale(0.92);
+}
+
+.card.dim h3 {
+  color: #aaa;
+}
+
+
+/* =====================================================
+   ACTIVE (PREDICTED)
+===================================================== */
+.card.active {
+  background: #ffffff;
+  padding: 14px;
+  border-radius: 20px;
+  border: 3px solid #c9a24d;
+  box-shadow:
+    0 0 0 4px rgba(201, 162, 77, 0.35),
+    0 18px 40px rgba(0, 0, 0, 0.25);
+}
+
+.card.active img {
+  transform: scale(1.1);
+  filter: brightness(1.15) contrast(1.1);
+  opacity: 1;
+}
+
+.card.active h3 {
+  font-weight: 700;
+  color: #111;
+}
+
+
+/* =====================================================
+   FINAL OUTPUT TEXT
+===================================================== */
+.final-output {
+  margin-top: 50px;
+  font-size: 22px;
+}
+
+.highlight {
+  font-weight: 800;
+  color: #c9a24d;
+  text-transform: uppercase;
+}
+
+/* ---------- SECONDARY BUTTON ---------- */
+.secondary-btn {
+  margin-top: 30px;
+  background: transparent;
+  color: #222;
+  border: 2px solid #c9a24d;
+  padding: 12px 26px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.secondary-btn:hover {
+  background: #c9a24d;
+  color: #000;
+}
+
+.retry-link {
+  text-decoration: none;
+}
