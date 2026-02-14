@@ -56,9 +56,9 @@ def train_model():
         mlflow.log_metric("test_accuracy", test_accuracy)
 
         report = classification_report(y_test, y_pred)
-        with open('training/classification_report.txt', 'w') as f: 
+        with open('metrics/classification_report.txt', 'w') as f: 
             f.write(report)
-        mlflow.log_artifact('training/classification_report.txt')
+        mlflow.log_artifact('metrics/classification_report.txt')
 
 
         os.makedirs("artifacts", exist_ok=True)
