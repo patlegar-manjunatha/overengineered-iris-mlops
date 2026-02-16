@@ -231,3 +231,33 @@ body {
 .retry-link {
   text-decoration: none;
 }
+
+/* =====================================================
+   NEW ADDITIONS FOR HOME BUTTONS
+===================================================== */
+
+.button-group {
+  display: flex;
+  gap: 16px; /* Space between buttons */
+  align-items: center;
+}
+
+/* Make sure the anchor tag doesn't mess up flex alignment */
+.button-group a {
+  text-decoration: none;
+}
+
+.status-text {
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  min-height: 20px; /* Prevents layout jump */
+}
+
+/* Optional: Disabled state for the button while training */
+.secondary-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: #ccc;
+  color: #ccc;
+}

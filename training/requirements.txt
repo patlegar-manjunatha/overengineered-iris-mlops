@@ -2,3 +2,7 @@ scikit-learn
 dagshub
 mlflow
 joblib
+fastapi
+uvicorn
+matplotlib
+skops

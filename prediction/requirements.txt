@@ -4,3 +4,7 @@ jinja2
 python-multipart
 dagshub
 joblib
+httpx
+scikit-learn
+numpy
+uvicorn

@@ -21,9 +21,18 @@
         top-tier engineering talent.
       </p>
 
-      <a href="/predict-form">
-        <button class="primary-btn">INITIALIZE SYSTEM</button>
-      </a>
+      <div class="button-group">
+        <a href="/predict-form">
+          <button class="primary-btn">INITIALIZE SYSTEM</button>
+        </a>
+        
+        <button id="trainBtn" class="secondary-btn" onclick="triggerTraining()">
+          RETRAIN MODEL
+        </button>
+      </div>
+
+      <p id="statusMsg" class="status-text"></p>
+
     </section>
 
     <section class="home-right">
@@ -33,6 +42,48 @@
     </section>
 
   </main>
+
+  <script>
+    async function triggerTraining() {
+      const btn = document.getElementById("trainBtn");
+      const status = document.getElementById("statusMsg");
+
+      // 1. UI Loading State
+      btn.disabled = true;
+      btn.innerText = "TRAINING...";
+      status.innerText = "Initializing Training Pipeline via Docker Network...";
+      status.style.color = "#555";
+
+      try {
+        // 2. Call the Endpoint (This talks to main.py -> which talks to training container)
+        const response = await fetch("/trigger-train", {
+          method: "POST"
+        });
+        
+        const data = await response.json();
+
+        if (response.ok) {
+          // 3. Success
+          status.innerText = "SUCCESS: " + data.message;
+          status.style.color = "green";
+          alert("Training Complete! New Model loaded.");
+        } else {
+          // 4. Server Error
+          status.innerText = "ERROR: " + data.detail;
+          status.style.color = "red";
+        }
+
+      } catch (error) {
+        // 5. Network Error
+        status.innerText = "CONNECTION FAILED: " + error.message;
+        status.style.color = "red";
+      } finally {
+        // 6. Reset Button
+        btn.disabled = false;
+        btn.innerText = "RETRAIN MODEL";
+      }
+    }
+  </script>
 
 </body>
 </html>

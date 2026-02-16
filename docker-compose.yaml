@@ -1,0 +1,33 @@
+services:
+  prediction: 
+    build: ./prediction
+    container_name: nexus_prediction
+    ports:
+      - "8000:8000"
+    volumes:
+      - model_exchange:/app/artifacts
+    environment:
+      - TRAINING_SERVICE_URL=http://training-service:8001/train
+    depends_on:
+      - training-service
+    networks:
+      - ml_network
+  
+  training-service:
+    build: ./training
+    container_name: nexus_training
+    ports:
+      - "8001:8001"
+    volumes:
+      - model_exchange:/app/artifacts
+    environment:
+      - MLFLOW_TRACKING_URI=https://dagshub.com/patlegar-manjunatha/overengineered-iris-mlops.mlflow
+      - MLFLOW_TRACKING_USERNAME=patlegar-manjunatha
+      - DAGSHUB_USER_TOKEN=49c74420ec44643887e4c4250652166d0d6c3670
+    networks:
+      - ml_network
+
+volumes:
+  model_exchange:
+networks:
+  ml_network:

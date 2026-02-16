@@ -1,3 +1,7 @@
+import matplotlib
+matplotlib.use("Agg")
+from fastapi import FastAPI, HTTPException
+import uvicorn
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.preprocessing import StandardScaler
@@ -7,8 +11,10 @@ import os
 import joblib
 import mlflow
 import dagshub
-dagshub.init(repo_owner='patlegar-manjunatha', repo_name='overengineered-iris-mlops', mlflow=True)
 
+app = FastAPI(title="Iris Training Service")
+
+dagshub.init(repo_owner='patlegar-manjunatha', repo_name='overengineered-iris-mlops', mlflow=True)
 mlflow.set_tracking_uri("https://dagshub.com/patlegar-manjunatha/overengineered-iris-mlops.mlflow/")
 mlflow.set_experiment('LogisticRegression')
 
@@ -25,12 +31,14 @@ def load_data():
 def get_grid():
     return [
         {
-            "solver": ["saga"],              
+            "solver": ["saga"],
+            "penalty": ["elasticnet"],
             "C": [0.01, 1, 100],
-            "l1_ratio": [0, 0.5, 1],         
-            "max_iter": [3000],               
+            "l1_ratio": [0, 0.5, 1],
+            "max_iter": [5000],
         }
     ]
+
 
 def train_model():
 
@@ -42,7 +50,7 @@ def train_model():
     
     param_grid = get_grid()
     model = LogisticRegression()
-    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=2, n_jobs=-1)
+    grid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=4, n_jobs=-1)
     
     mlflow.sklearn.autolog(log_models=True, log_input_examples=True, exclusive=False)
 
@@ -56,6 +64,7 @@ def train_model():
         mlflow.log_metric("test_accuracy", test_accuracy)
 
         report = classification_report(y_test, y_pred)
+        os.makedirs('metrics', exist_ok=True)
         with open('metrics/classification_report.txt', 'w') as f: 
             f.write(report)
         mlflow.log_artifact('metrics/classification_report.txt')
@@ -66,11 +75,14 @@ def train_model():
         joblib.dump(scaler, 'artifacts/scaler.pkl')
 
     print("Training process is completed")
+    return {'status' : 'success', 'accuracy' : test_accuracy, 'best_params' : grid_search.best_params_}
 
-
+@app.post("/train")
+def trigger_training():
+    try: 
+        result = train_model()
+        return result
+    except Exception as e : 
+        raise HTTPException(status_code=500, detail=str(e))
 if __name__ == '__main__': 
-    train_model()
-
-    
-
-
+    uvicorn.run(app, host="0.0.0.0", port=8001)

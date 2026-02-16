@@ -1,16 +1,6 @@
-# overengineered-iris-mlops
-A production-grade MLOps pipeline built on a toy dataset. This project demonstrates end-to-end lifecycle management (Docker, K8s, CI/CD, MLflow, AWS) applied to the Iris dataset to showcase infrastructure architecture without the distraction of complex modeling.
-
-
-TODO : 
-> dump model & scaler to dagshub S3 after training the model using 
-```
-dagshub upload --bucket patlegar-manjunatha/overengineered-iris-mlops "artifacts"
-```
-
-> load model & scaler from dagshub s3 while prediciton using : 
-```
-dagshub download --bucket patlegar-manjunatha/overengineered-iris-mlops .
-```
+Updates : 
+> commit 1 : Added training stage
+> commit 2 : Added Prediction Stage
+> commit 3 : Add DockerFiles for both stage and build a connection via docker-compose (training service will triggered if we click train on predicition service : this results a basic form of microservice architecture)
 
 

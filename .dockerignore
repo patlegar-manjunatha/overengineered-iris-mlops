@@ -1,0 +1,26 @@
+# Ignore git history
+.git
+.gitignore
+
+# Ignore python cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore local virtual environments (Crucial!)
+.venv
+venv
+env
+trainingvenv
+
+# Ignore OS files
+.DS_Store
+
+# Ignore local IDE settings
+.vscode
+.idea
+
+# Ignore local artifacts (We generate these fresh or mount them)
+training/models/
+prediction/models/
