@@ -7,10 +7,12 @@ import joblib
 import httpx
 import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 app = FastAPI(title='Iris Prediction')
 
-templates = Jinja2Templates (directory="templates")
-app.mount('/static', StaticFiles(directory='static'), name='static')
+templates = Jinja2Templates (directory=os.path.join(BASE_DIR, "templates"))
+app.mount('/static', StaticFiles(directory=os.path.join(BASE_DIR, "static")), name='static')
 
 class InputSchema(BaseModel): 
     sepal_length : float 
@@ -40,11 +42,11 @@ load_artifacts()
 
 @app.get('/')
 def home(request: Request): 
-    return templates.TemplateResponse('home.html', {"request": request})
+    return templates.TemplateResponse(request=request, name='home.html')
 
 @app.get('/predict-form')
 def start(request: Request): 
-    return templates.TemplateResponse('predict_form.html', {"request" : request})
+    return templates.TemplateResponse(request=request, name='predict_form.html')
 
 @app.post('/trigger-train')
 async def trigger_training(): 
@@ -82,4 +84,4 @@ def predict(request : Request,
 
     target_names = ['setosa', 'versicolor', 'virginica']
     prediction_label = target_names[prediction_idx].capitalize()
-    return templates.TemplateResponse('result.html', {"request": request, "prediction" : prediction_label})
+    return templates.TemplateResponse(request=request, name='result.html', context={'prediction' : prediction_label})

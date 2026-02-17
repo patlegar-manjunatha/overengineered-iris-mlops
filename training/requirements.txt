@@ -6,3 +6,4 @@ fastapi
 uvicorn
 matplotlib
 skops
+pytest
